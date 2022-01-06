@@ -1,0 +1,7 @@
+{
+  "BasicRigCardLimit": 2,
+  "AdvancedRigCardLimit": 5,
+  "BasicRigItemName": "basic_miningrig",
+  "AdvancedRigItemName": "advanced_miningrig",
+  "TickRate": 24
+}

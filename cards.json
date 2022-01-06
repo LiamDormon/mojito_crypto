@@ -1,0 +1,38 @@
+{
+  "rtx3090": {
+    "hashrate": 114.0,
+    "wattage": 320.0
+  },
+  "rtx3080": {
+    "hashrate": 91.5,
+    "wattage": 200
+  },
+  "rtx3080ti": {
+    "hashrate": 49.0,
+    "wattage": 280
+  },
+  "rtx3070ti": {
+    "hashrate": 39.5,
+    "wattage": 250
+  },
+  "rtx3070": {
+    "hashrate": 58.0,
+    "wattage": 130
+  },
+  "rx6800": {
+    "hashrate": 64.0,
+    "wattage": 150
+  },
+  "rx6800xt": {
+    "hashrate": 64.0,
+    "wattage": 150
+  },
+  "rx6900xt": {
+    "hashrate": 64.0,
+    "wattage": 150
+  },
+  "rx6700xt": {
+    "hashrate": 48.0,
+    "wattage": 140
+  }
+}
