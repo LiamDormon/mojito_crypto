@@ -39,6 +39,23 @@ Profit is calculated by taking the hashrate and dividing it by 10% of the power 
 
 These numbers pre-configured were taken from https://whattomine.com/ and have not been balanced, so I strongly recommend comming up with your own figures!
 
+## Installation
+Download the latest release or compile from the source.
+
+Add miningrigs table to your database:
+```sql
+CREATE TABLE IF NOT EXISTS `player_miningrigs` (
+  `id` varchar(50) NOT NULL,
+  `citizenid` varchar(50) NOT NULL,
+  `rig` text DEFAULT NULL,
+  PRIMARY KEY (`citizenid`),
+  KEY `id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+```
+
+Run the script and enjoy
+
 ## Screenshots
 
 ![Placing A Basic Rig](https://i.imgur.com/elAMXCc.png "Placing a basic rig")
@@ -52,6 +69,10 @@ These numbers pre-configured were taken from https://whattomine.com/ and have no
 - [qb-core](https://github.com/qbcore-framework/qb-core)
 - [qb-menu](https://github.com/qbcore-framework/qb-menu)
 - [qb-target](https://github.com/BerkieBb/qb-target)
+
+## Developing / Building
+
+To compile simplly do `yarn` to download dependencies and `yarn build` to compile, use `yarn watch` to put webpack into develop mode to build as you're working.
 
 ## License
 
