@@ -47,6 +47,23 @@ These numbers pre-configured were taken from https://whattomine.com/ and have no
 
 Download the latest release or compile from the source.
 
+### Items
+Copy and Paste the items from the config and add it to qb-core/shared/items.lua    
+```lua
+---- Crypto Mining  
+["basic_miningrig"]	= {["name"] = "basic_miningrig",	["label"] = "Basic Mining Rig",		["weight"] = 20000,	["type"] = "item",	["image"] = "basic_miningrig.png",	["unique"] = true,	["useable"] = true,	["shouldClose"] = false,	["combinable"] = nil,	   ["description"] = "A Basic Mining Rig!"},
+["advanced_miningrig"] = {["name"] = "advanced_miningrig",	["label"] = "Advanced Mining Rig",	["weight"] = 15000,	["type"] = "item",	["image"] = "advanced_miningrig.png",	["unique"] = true,	["useable"] = true,	["shouldClose"] = false,["combinable"] = nil,	   ["description"] = "An Advanced Mining Rig!"},
+["rtx3090"]	= {["name"] = "rtx3090",	["label"] = "RTX 3090",		["weight"] = 4000,	["type"] = "item",	["image"] = "rtx3090.png",	["unique"] = true,	["useable"] = true,	["shouldClose"] = false,	["combinable"] = nil,	["description"] = "RTX 3090 Graphics Card"},
+["rtx3080"]	= {["name"] = "rtx3080",	["label"] = "RTX 3080",		["weight"] = 4000,	["type"] = "item",	["image"] = "rtx3080.png",	["unique"] = true,	["useable"] = true,	["shouldClose"] = false,	["combinable"] = nil,	["description"] = "RTX 3080 Graphics Card"},
+["rtx3080ti"]	= {["name"] = "rtx3080ti",	["label"] = "RTX 3080TI",	["weight"] = 4000,	["type"] = "item",	["image"] = "rtx3080ti.png",	["unique"] = true,	["useable"] = true,	["shouldClose"] = false,	["combinable"] = nil,	["description"] = "RTX 3080TI Graphics Card"},
+["rtx3070ti"]	= {["name"] = "rtx3070ti",	["label"] = "RTX 3070TI",	["weight"] = 4000,	["type"] = "item",	["image"] = "rtx3070ti.png",	["unique"] = true,	["useable"] = true,	["shouldClose"] = false,	["combinable"] = nil,	["description"] = "RTX 3070TI Graphics Card"},
+["rtx3070"]	= {["name"] = "rtx3070",	["label"] = "RTX 3070",		["weight"] = 4000,	["type"] = "item",	["image"] = "rtx3070.png",	["unique"] = true,	["useable"] = true,	["shouldClose"] = false,	["combinable"] = nil,	["description"] = "RTX 3070 Graphics Card"},
+["rx6800"]	= {["name"] = "rx6800",		["label"] = "RX 6800",		["weight"] = 4000,	["type"] = "item",	["image"] = "rx6800.png",	["unique"] = true,	["useable"] = true,	["shouldClose"] = false,	["combinable"] = nil,	["description"] = "RX 6800 Graphics Card"},
+["rx6800xt"]	= {["name"] = "rx6800xt",	["label"] = "RX 6800 XT",	["weight"] = 4000,	["type"] = "item",	["image"] = "rx6800xt.png",	["unique"] = true,	["useable"] = true,	["shouldClose"] = false,	["combinable"] = nil,	["description"] = "RX 6800 XT Graphics Card"},
+["rx6900xt"]	= {["name"] = "rx6900xt",	["label"] = "RX 6900 XT",	["weight"] = 4000,	["type"] = "item",	["image"] = "rx6900xt.png",	["unique"] = true,	["useable"] = true,	["shouldClose"] = false,	["combinable"] = nil,	["description"] = "RX 6900 XT Graphics Card"},
+["rx6700xt"]	= {["name"] = "rx6700xt",	["label"] = "RX 6700 XT",	["weight"] = 4000,	["type"] = "item",	["image"] = "rx6700xt.png",	["unique"] = true,	["useable"] = true,	["shouldClose"] = false,	["combinable"] = nil,	["description"] = "RX 6700 XT Graphics Card"},
+```
+### SQL
 Add miningrigs table to your database:
 
 ```sql
