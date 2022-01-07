@@ -48,7 +48,7 @@ export abstract class MiningRig {
 
   constructor(pos?: Vector3, gpus?: GraphicsCard[], rigid?: string) {
     if (pos) {
-      this._entity = new Prop(CreateObject(this.MODELHASH, pos.x, pos.y, pos.z, true, true, false));
+      this._entity = new Prop(CreateObject(this.MODELHASH, pos.x, pos.y, pos.z, false, true, false));
       this.Position = pos;
     }
 
@@ -90,7 +90,10 @@ export abstract class MiningRig {
   }
 
   public RegisterTarget(): void {
-    global.exports['qb-target'].AddTargetEntity(this.Handle, {
+    global.exports['qb-target'].AddEntityZone(`miningrig-${this.RIGID}`, {
+      name: `miningrig-${this.RIGID}`,
+      debug: GetConvar("mojito_debug", "0") == "1"
+    }, {
       distance: 2.0,
       options: [
         {
@@ -106,7 +109,7 @@ export abstract class MiningRig {
     return new Promise((resolve, reject) => {
       const PlyPed = Game.PlayerPed;
       const SpawnCoords = PlyPed.getOffsetPosition(new Vector3(0.0, 0.8, 0.0));
-      this._entity = new Prop(CreateObject(this.MODELHASH, SpawnCoords.x, SpawnCoords.y, SpawnCoords.z, true, true, false));
+      this._entity = new Prop(CreateObject(this.MODELHASH, SpawnCoords.x, SpawnCoords.y, SpawnCoords.z, false, true, false));
       SetEntityCollision(this._entity.Handle, false, false);
 
       this._entity.Opacity = 150;
