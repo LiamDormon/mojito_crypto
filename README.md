@@ -38,7 +38,7 @@ Add These items to your shared/items.lua
 ---- Crypto Mining  
 ["basic_miningrig"]	= {["name"] = "basic_miningrig",	["label"] = "Basic Mining Rig",		["weight"] = 20000,	["type"] = "item",	["image"] = "basic_miningrig.png",	["unique"] = true,	["useable"] = true,	["shouldClose"] = false,	["combinable"] = nil,	   ["description"] = "A Basic Mining Rig!"},
 
-["advanced_miningrig"]		= {["name"] = "advanced_miningrig",	["label"] = "Advanced Mining Rig",	["weight"] = 15000,	["type"] = "item",	["image"] = "advanced_miningrig.png",	["unique"] = true,	["useable"] = true,	["shouldClose"] = false,["combinable"] = nil,	   ["description"] = "An Advanced Mining Rig!"},
+["advanced_miningrig"] = {["name"] = "advanced_miningrig",	["label"] = "Advanced Mining Rig",	["weight"] = 15000,	["type"] = "item",	["image"] = "advanced_miningrig.png",	["unique"] = true,	["useable"] = true,	["shouldClose"] = false,["combinable"] = nil,	   ["description"] = "An Advanced Mining Rig!"},
 
 ["rtx3090"]	= {["name"] = "rtx3090",	["label"] = "RTX 3090",		["weight"] = 4000,	["type"] = "item",	["image"] = "rtx3090.png",	["unique"] = true,	["useable"] = true,	["shouldClose"] = false,	["combinable"] = nil,	["description"] = "RTX 3090 Graphics Card"},
 
