@@ -128,6 +128,8 @@ class _RigService {
       const resp: DatabaseResp[] = await exp.oxmysql.query_async('SELECT * FROM player_miningrigs');
       const all_rigs = [];
 
+      if(!resp || resp.length < 1 ) return resolve([])
+
       for (let i = 0; i <= resp.length; i++) {
         all_rigs.push(new Rig(JSON.parse(resp[i].rig)));
       }
