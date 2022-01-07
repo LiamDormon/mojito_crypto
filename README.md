@@ -66,6 +66,9 @@ These numbers pre-configured were taken from https://whattomine.com/ and have no
 ## Installation
 Download the latest release or compile from the source.
 
+##Items
+Copy and Paste the items from the config and add it to qb-core/shared/items.lua    
+
 Add miningrigs table to your database:
 ```sql
 CREATE TABLE IF NOT EXISTS `player_miningrigs` (
