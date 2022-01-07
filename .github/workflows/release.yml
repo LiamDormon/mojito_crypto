@@ -29,7 +29,7 @@ jobs:
       - name: Bundle files
         run: |
           mkdir -p ./release/mojito_crypto
-          cp ./{LICENSE,README.md,fxmanifest.lua, config.json, cards.json} ./release/mojito_crypto
+          cp ./{LICENSE,README.md,fxmanifest.lua,config.json,cards.json} ./release/mojito_crypto
           cp -r ./dist ./release/mojito_crypto
           cd ./release && zip -r ../mojito_crypto.zip ./mojito_crypto
 
