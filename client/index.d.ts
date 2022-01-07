@@ -39,5 +39,6 @@ interface Rig {
 }
 
 interface FetchRigsResponse {
-  rigs: Rig[];
+  playerRigs: Rig[];
+  allRigs: Rig[];
 }

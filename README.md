@@ -3,6 +3,7 @@
 Typescript crypto mining resource for QBCore fivem framework. Earn passive income by buying mining rigs and upgrade them with new graphics cards.
 
 ## Features
+
 - Earn qbits passively by owning mining rigs and upgrading them
 - Different tiers of rigs can contain a different number of graphics cards
 - Hashrate and power draw of the card is used to calculate profits
@@ -11,19 +12,22 @@ Typescript crypto mining resource for QBCore fivem framework. Earn passive incom
 - Logs to console
 
 ## Config
-To enable console output use `set mojito_debug 1` into your server.cfg 
 
-Config: 
+To enable console output use `set mojito_debug 1` into your server.cfg
+
+Config:
+
 ```js
 {
   "BasicRigCardLimit": 2,                       // Amount of GPUS which can be inside of the basic rig
   "AdvancedRigCardLimit": 5,
   "BasicRigItemName": "basic_miningrig",        // Item name for your mining rigs
-  "AdvancedRigItemName": "advanced_miningrig",  
+  "AdvancedRigItemName": "advanced_miningrig",
   "TickRate": 24                                // Time in minutes it takes for each cycle
 }
 ```
-Cards: 
+
+Cards:
 
 ```json
 {
@@ -40,9 +44,11 @@ Profit is calculated by taking the hashrate and dividing it by 10% of the power 
 These numbers pre-configured were taken from https://whattomine.com/ and have not been balanced, so I strongly recommend comming up with your own figures!
 
 ## Installation
+
 Download the latest release or compile from the source.
 
 Add miningrigs table to your database:
+
 ```sql
 CREATE TABLE IF NOT EXISTS `player_miningrigs` (
   `id` varchar(50) NOT NULL,
@@ -58,14 +64,15 @@ Run the script and enjoy
 
 ## Screenshots
 
-![Placing A Basic Rig](https://i.imgur.com/elAMXCc.png "Placing a basic rig")
-![Rig Manager](https://i.imgur.com/UFH3ChX.png "Rig Manager")
+![Placing A Basic Rig](https://i.imgur.com/elAMXCc.png 'Placing a basic rig')
+![Rig Manager](https://i.imgur.com/UFH3ChX.png 'Rig Manager')
 
 <div style="text-align: center;">
     <a href="https://imgur.com/a/QIIrQTO"> More Images </a>
 </div>
 
 ## Dependencies
+
 - [qb-core](https://github.com/qbcore-framework/qb-core)
 - [qb-menu](https://github.com/qbcore-framework/qb-menu)
 - [qb-target](https://github.com/BerkieBb/qb-target)

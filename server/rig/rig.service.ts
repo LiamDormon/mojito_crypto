@@ -106,11 +106,8 @@ class _RigService {
     this.Rigs.set(rig.Id, rig);
   }
 
-  async fetchPlayerRigs(playerSrc: string | number): Promise<Rig[]> {
+  async fetchPlayerRigs(citizenid: citizenid): Promise<Rig[]> {
     return new Promise(async (resolve) => {
-      const Player = QBCore.Functions.GetPlayer(playerSrc);
-      const { citizenid } = Player.PlayerData;
-
       const resp: DatabaseResp[] = await exp.oxmysql.query_async('SELECT * FROM player_miningrigs WHERE citizenid = ?', [citizenid]);
       const player_rigs: Rig[] = [];
 
@@ -123,6 +120,19 @@ class _RigService {
       RigLogger.loadedRigs(player_rigs, citizenid);
 
       resolve(player_rigs);
+    });
+  }
+
+  async fetchAllRigs(): Promise<Rig[]> {
+    return new Promise(async (resolve) => {
+      const resp: DatabaseResp[] = await exp.oxmysql.query_async('SELECT * FROM player_miningrigs');
+      const all_rigs = [];
+
+      for (let i = 0; i <= resp.length; i++) {
+        all_rigs.push(new Rig(JSON.parse(resp[i].rig)));
+      }
+
+      resolve(all_rigs);
     });
   }
 

@@ -1,5 +1,5 @@
 import { Control, Game, Prop, Scaleform, Vector3 } from '@nativewrappers/client';
-import { InstructionalButtons } from '@nativewrappers/client/lib/ui/InstructionalButtons'
+import { InstructionalButtons } from '@nativewrappers/client/lib/ui/InstructionalButtons';
 import { Config, GPUDict } from './config';
 import { ClientUtils, uuidV4 } from '@project-error/pe-utils';
 

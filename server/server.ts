@@ -7,13 +7,17 @@ const exp = global.exports;
 
 Utils.onNetPromise('crypto:fetchrigs', async (req, res) => {
   const { source } = req;
+  const Player = QBCore.Functions.GetPlayer(source);
+  const { citizenid } = Player.PlayerData;
 
-  const PlayerRigs = await RigService.fetchPlayerRigs(source);
+  const PlayerRigs = await RigService.fetchPlayerRigs(citizenid);
+  const AllRigs = await RigService.fetchAllRigs().then((rigs) => rigs.filter((rig) => rig.Owner !== citizenid));
 
   res({
     status: 'ok',
     data: {
-      rigs: PlayerRigs,
+      playerRigs: PlayerRigs,
+      allRigs: AllRigs,
     },
   });
 });
