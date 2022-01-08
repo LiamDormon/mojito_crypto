@@ -90,26 +90,31 @@ export abstract class MiningRig {
   }
 
   public RegisterTarget(): void {
-    global.exports['qb-target'].AddEntityZone(`miningrig-${this.RIGID}`, {
-      name: `miningrig-${this.RIGID}`,
-      debug: GetConvar("mojito_debug", "0") == "1"
-    }, {
-      distance: 2.0,
-      options: [
-        {
-          label: 'Open Mining Rig',
-          icon: 'fas fa-server',
-          event: 'crypto:openmenu',
-        },
-      ],
-    });
+    global.exports['qb-target'].AddEntityZone(
+      `miningrig-${this.RIGID}`,
+      this._entity.Handle,
+      {
+        name: `miningrig-${this.RIGID}`,
+        debug: GetConvar('mojito_debug', '0') == '1',
+      },
+      {
+        distance: 2.0,
+        options: [
+          {
+            label: 'Open Mining Rig',
+            icon: 'fas fa-server',
+            event: 'crypto:openmenu',
+          },
+        ],
+      },
+    );
   }
 
   public Place(): Promise<void> {
     return new Promise((resolve, reject) => {
       const PlyPed = Game.PlayerPed;
       const SpawnCoords = PlyPed.getOffsetPosition(new Vector3(0.0, 0.8, 0.0));
-      this._entity = new Prop(CreateObject(this.MODELHASH, SpawnCoords.x, SpawnCoords.y, SpawnCoords.z, false, true, false));
+      this._entity = new Prop(CreateObject(this.MODELHASH, SpawnCoords.x, SpawnCoords.y, SpawnCoords.z, true, true, false));
       SetEntityCollision(this._entity.Handle, false, false);
 
       this._entity.Opacity = 150;

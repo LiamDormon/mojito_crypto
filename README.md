@@ -48,9 +48,11 @@ These numbers pre-configured were taken from https://whattomine.com/ and have no
 Download the latest release or compile from the source.
 
 ### Items
-Copy and Paste the items from the config and add it to qb-core/shared/items.lua    
+
+Copy and Paste the items from the config and add it to qb-core/shared/items.lua
+
 ```lua
----- Crypto Mining  
+---- Crypto Mining
 ["basic_miningrig"]	= {["name"] = "basic_miningrig",	["label"] = "Basic Mining Rig",		["weight"] = 20000,	["type"] = "item",	["image"] = "basic_miningrig.png",	["unique"] = true,	["useable"] = true,	["shouldClose"] = false,	["combinable"] = nil,	   ["description"] = "A Basic Mining Rig!"},
 ["advanced_miningrig"] = {["name"] = "advanced_miningrig",	["label"] = "Advanced Mining Rig",	["weight"] = 15000,	["type"] = "item",	["image"] = "advanced_miningrig.png",	["unique"] = true,	["useable"] = true,	["shouldClose"] = false,["combinable"] = nil,	   ["description"] = "An Advanced Mining Rig!"},
 ["rtx3090"]	= {["name"] = "rtx3090",	["label"] = "RTX 3090",		["weight"] = 4000,	["type"] = "item",	["image"] = "rtx3090.png",	["unique"] = true,	["useable"] = true,	["shouldClose"] = false,	["combinable"] = nil,	["description"] = "RTX 3090 Graphics Card"},
@@ -63,7 +65,9 @@ Copy and Paste the items from the config and add it to qb-core/shared/items.lua
 ["rx6900xt"]	= {["name"] = "rx6900xt",	["label"] = "RX 6900 XT",	["weight"] = 4000,	["type"] = "item",	["image"] = "rx6900xt.png",	["unique"] = true,	["useable"] = true,	["shouldClose"] = false,	["combinable"] = nil,	["description"] = "RX 6900 XT Graphics Card"},
 ["rx6700xt"]	= {["name"] = "rx6700xt",	["label"] = "RX 6700 XT",	["weight"] = 4000,	["type"] = "item",	["image"] = "rx6700xt.png",	["unique"] = true,	["useable"] = true,	["shouldClose"] = false,	["combinable"] = nil,	["description"] = "RX 6700 XT Graphics Card"},
 ```
+
 ### SQL
+
 Add miningrigs table to your database:
 
 ```sql
