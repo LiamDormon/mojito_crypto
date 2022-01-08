@@ -11,26 +11,14 @@ export abstract class MiningRig {
   public LIMIT: number;
   public GPUS: GraphicsCard[] = [];
   public RIGID: string;
-  public set Position(pos: Vector3) {
-    if (DoesEntityExist(this._entity.Handle)) {
-      this._entity.Position = pos;
-    }
-  }
-  public get Position(): Vector3 {
-    if (DoesEntityExist(this._entity.Handle)) {
-      return this._entity.Position;
-    }
-  }
-  public get Handle(): number {
-    if (DoesEntityExist(this._entity.Handle)) {
-      return this._entity.Handle;
-    }
-  }
+  public Position: Vector3;
+
   public get Heading(): number {
     if (DoesEntityExist(this._entity.Handle)) {
       return this._entity.Heading;
     }
   }
+
   public set Heading(dir) {
     if (DoesEntityExist(this._entity.Handle)) {
       this._entity.Heading = dir;
@@ -48,7 +36,6 @@ export abstract class MiningRig {
 
   constructor(pos?: Vector3, gpus?: GraphicsCard[], rigid?: string) {
     if (pos) {
-      this._entity = new Prop(CreateObject(this.MODELHASH, pos.x, pos.y, pos.z, false, true, false));
       this.Position = pos;
     }
 
@@ -110,6 +97,26 @@ export abstract class MiningRig {
     );
   }
 
+  public Create(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const gameTimer = GetGameTimer();
+      const obj = CreateObject(this.MODELHASH, this.Position.x, this.Position.y, this.Position.z, false, true, false);
+      this._entity = new Prop(obj);
+
+      this._tick = setTick(() => {
+        if (this._entity.exists()) {
+          clearTick(this._tick);
+          resolve();
+        }
+
+        if (GetGameTimer() - gameTimer >= 5000) {
+          clearTick(this._tick);
+          reject('Timeout: entity was not created in 5000ms');
+        }
+      });
+    });
+  }
+
   public Place(): Promise<void> {
     return new Promise((resolve, reject) => {
       const PlyPed = Game.PlayerPed;
@@ -120,7 +127,10 @@ export abstract class MiningRig {
       this._entity.Opacity = 150;
 
       const buttons = new InstructionalButtons([
-        { controls: [Control.PhoneLeft, Control.PhoneRight, Control.PhoneUp, Control.PhoneDown], label: 'Left / Right / Forward / Back' },
+        {
+          controls: [Control.PhoneLeft, Control.PhoneRight, Control.PhoneUp, Control.PhoneDown],
+          label: 'Left / Right / Forward / Back',
+        },
         { controls: [Control.FrontendRs, Control.FrontendLs], label: 'Up / Down' },
         { controls: [Control.Context, Control.ContextSecondary], label: 'Rotate' },
       ]);

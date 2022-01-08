@@ -130,7 +130,7 @@ class _RigService {
 
       if (!resp || resp.length < 1) return resolve([]);
 
-      for (let i = 0; i <= resp.length; i++) {
+      for (let i = 0; i < resp.length; i++) {
         all_rigs.push(new Rig(JSON.parse(resp[i].rig)));
       }
 

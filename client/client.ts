@@ -11,7 +11,7 @@ on('QBCore:Client:OnPlayerLoaded', async () => {
   const resp = await Utils.emitNetPromise<ServerPromiseResp<FetchRigsResponse>>('crypto:fetchrigs', {});
   if (!resp.data.playerRigs || !resp.data.allRigs) return;
 
-  resp.data.playerRigs.forEach((rig) => {
+  for (const rig of resp.data.playerRigs) {
     let _rig: MiningRig;
     switch (rig.Type) {
       case 'basic':
@@ -21,11 +21,12 @@ on('QBCore:Client:OnPlayerLoaded', async () => {
         _rig = new AdvancedMiningRig(Vector3.create(rig.Position), rig.GPUS, rig.Id);
         break;
     }
+    await _rig.Create()
     _rig.Heading = rig.Heading;
     _rig.RegisterTarget();
 
     MY_RIGS.push(_rig);
-  });
+  }
 
   resp.data.allRigs.forEach((rig) => {
     let _rig: MiningRig;
