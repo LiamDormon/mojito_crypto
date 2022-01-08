@@ -97,6 +97,7 @@ Run the script and enjoy
 - [qb-core](https://github.com/qbcore-framework/qb-core)
 - [qb-menu](https://github.com/qbcore-framework/qb-menu)
 - [qb-target](https://github.com/BerkieBb/qb-target)
+- [oxmysql v1.9.x](https://github.com/overextended/oxmysql)
 
 ## Developing / Building
 
