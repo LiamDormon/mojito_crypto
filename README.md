@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS `player_miningrigs` (
   `id` varchar(50) NOT NULL,
   `citizenid` varchar(50) NOT NULL,
   `rig` text DEFAULT NULL,
-  PRIMARY KEY (`citizenid`),
+  KEY `citizenid` (`citizenid`),
   KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
