@@ -105,6 +105,7 @@ export abstract class MiningRig {
 
       this._tick = setTick(() => {
         if (this._entity.exists()) {
+          this._entity.IsPositionFrozen = true;
           clearTick(this._tick);
           resolve();
         }
