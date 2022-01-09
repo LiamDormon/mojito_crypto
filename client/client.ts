@@ -28,7 +28,7 @@ on('QBCore:Client:OnPlayerLoaded', async () => {
     MY_RIGS.push(_rig);
   }
 
-  resp.data.allRigs.forEach((rig) => {
+  for (const rig of resp.data.allRigs) {
     let _rig: MiningRig;
     switch (rig.Type) {
       case 'basic':
@@ -38,8 +38,9 @@ on('QBCore:Client:OnPlayerLoaded', async () => {
         _rig = new AdvancedMiningRig(Vector3.create(rig.Position), rig.GPUS, rig.Id);
         break;
     }
+    await _rig.Create()
     _rig.Heading = rig.Heading;
-  });
+  }
 });
 
 on('QBCore:Client:OnPlayerLoaded', () => {
