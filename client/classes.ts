@@ -2,9 +2,13 @@ import { Control, Game, Prop, Vector3 } from '@nativewrappers/client';
 import { InstructionalButtons } from '@nativewrappers/client/lib/ui/InstructionalButtons';
 import { Config, GPUDict } from './config';
 import { ClientUtils, uuidV4 } from '@project-error/pe-utils';
+import { QBCore } from './qbcore';
+
+const Speeds = [0.01, 0.05, 0.1, 0.2, 0.5];
 
 export abstract class MiningRig {
   private _tick: number;
+  private _speed: number;
   private _entity: Prop;
 
   public MODELHASH: number;
@@ -120,7 +124,10 @@ export abstract class MiningRig {
         { controls: [Control.FrontendRs, Control.FrontendLs], label: 'Height' },
         { controls: [Control.Context, Control.ContextSecondary], label: 'Rotate' },
         { controls: [Control.PhoneExtraOption], label: 'Place on Ground' },
+        { controls: [Control.ScriptedFlyZUp, Control.ScriptedFlyZDown], label: 'Speed' },
       ]);
+
+      this._speed = 0;
 
       this._tick = setTick(() => {
         buttons.draw();
@@ -130,41 +137,55 @@ export abstract class MiningRig {
 
         // Up-Arrow
         if (IsControlPressed(0, Control.PhoneUp)) {
-          this._entity.Position = this._entity.getOffsetPosition(new Vector3(0, -0.04, 0));
+          this._entity.Position = this._entity.getOffsetPosition(new Vector3(0, -Speeds[this._speed], 0));
         }
         // Down-Arrow
         if (IsControlPressed(0, Control.PhoneDown)) {
-          this._entity.Position = this._entity.getOffsetPosition(new Vector3(0, 0.04, 0));
+          this._entity.Position = this._entity.getOffsetPosition(new Vector3(0, Speeds[this._speed], 0));
         }
         // Left-Arrow
         if (IsControlPressed(0, Control.PhoneLeft)) {
-          this._entity.Position = this._entity.getOffsetPosition(new Vector3(0.04, 0, 0));
+          this._entity.Position = this._entity.getOffsetPosition(new Vector3(Speeds[this._speed], 0, 0));
         }
         // Right-Arrow
         if (IsControlPressed(0, Control.PhoneRight)) {
-          this._entity.Position = this._entity.getOffsetPosition(new Vector3(-0.04, 0, 0));
+          this._entity.Position = this._entity.getOffsetPosition(new Vector3(-Speeds[this._speed], 0, 0));
         }
         // Shift
         if (IsControlPressed(0, Control.FrontendLs)) {
-          this._entity.Position = Vector3.add(this._entity.Position, new Vector3(0.0, 0.0, 0.04));
+          this._entity.Position = Vector3.add(this._entity.Position, new Vector3(0.0, 0.0, Speeds[this._speed]));
         }
         // Control
         if (IsControlPressed(0, Control.FrontendRs)) {
-          this._entity.Position = Vector3.add(this._entity.Position, new Vector3(0.0, 0.0, -0.04));
+          this._entity.Position = Vector3.add(this._entity.Position, new Vector3(0.0, 0.0, -Speeds[this._speed]));
         }
 
         // E
         if (IsControlPressed(0, Control.Context)) {
-          this._entity.Rotation = Vector3.add(this._entity.Rotation, new Vector3(0.0, 0.0, 1.0));
+          this._entity.Rotation = Vector3.add(this._entity.Rotation, new Vector3(0.0, 0.0, Speeds[this._speed]));
         }
         // Q
         if (IsControlPressed(0, Control.ContextSecondary)) {
-          this._entity.Rotation = Vector3.add(this._entity.Rotation, new Vector3(0.0, 0.0, -1.0));
+          this._entity.Rotation = Vector3.add(this._entity.Rotation, new Vector3(0.0, 0.0, -Speeds[this._speed]));
         }
 
         // SPACE
         if (IsControlJustPressed(0, Control.PhoneExtraOption)) {
           this._entity.placeOnGround();
+        }
+
+        // PAGEUP
+        if (IsControlJustPressed(0, Control.ScriptedFlyZUp)) {
+          if (Speeds[this._speed + 1]) {
+            this._speed += 1;
+          }
+        }
+
+        // PAGEDOWN
+        if (IsControlJustPressed(0, Control.ScriptedFlyZDown)) {
+          if (Speeds[this._speed - 1]) {
+            this._speed -= 1;
+          }
         }
 
         // Enter
