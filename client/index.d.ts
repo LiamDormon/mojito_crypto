@@ -34,7 +34,7 @@ interface Rig {
   Id: string;
   Type: rigtype;
   Position: Vector3;
-  Heading: number;
+  Rotation: Vector3;
   GPUS: IGPU[];
 }
 

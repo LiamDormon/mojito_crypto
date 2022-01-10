@@ -5,6 +5,7 @@ import { ServerPromiseResp } from '@project-error/pe-utils';
 import { Vector3 } from '@nativewrappers/client';
 
 let MY_RIGS: MiningRig[] = [];
+let ALL_RIGS: MiningRig[] = [];
 const exp = global.exports;
 
 on('QBCore:Client:OnPlayerLoaded', async () => {
@@ -15,14 +16,14 @@ on('QBCore:Client:OnPlayerLoaded', async () => {
     let _rig: MiningRig;
     switch (rig.Type) {
       case 'basic':
-        _rig = new BasicMiningRig(Vector3.create(rig.Position), rig.GPUS, rig.Id);
+        _rig = new BasicMiningRig(Vector3.create(rig.Position), Vector3.create(rig.Rotation), rig.GPUS, rig.Id);
         break;
       case 'advanced':
-        _rig = new AdvancedMiningRig(Vector3.create(rig.Position), rig.GPUS, rig.Id);
+        _rig = new AdvancedMiningRig(Vector3.create(rig.Position), Vector3.create(rig.Rotation), rig.GPUS, rig.Id);
         break;
     }
-    await _rig.Create()
-    _rig.Heading = rig.Heading;
+    await _rig.Create();
+    _rig.Rotation = Vector3.create(rig.Rotation);
     _rig.RegisterTarget();
 
     MY_RIGS.push(_rig);
@@ -32,18 +33,23 @@ on('QBCore:Client:OnPlayerLoaded', async () => {
     let _rig: MiningRig;
     switch (rig.Type) {
       case 'basic':
-        _rig = new BasicMiningRig(Vector3.create(rig.Position), rig.GPUS, rig.Id);
+        _rig = new BasicMiningRig(Vector3.create(rig.Position), Vector3.create(rig.Rotation), rig.GPUS, rig.Id);
         break;
       case 'advanced':
-        _rig = new AdvancedMiningRig(Vector3.create(rig.Position), rig.GPUS, rig.Id);
+        _rig = new AdvancedMiningRig(Vector3.create(rig.Position), Vector3.create(rig.Rotation), rig.GPUS, rig.Id);
         break;
     }
-    await _rig.Create()
-    _rig.Heading = rig.Heading;
+    await _rig.Create();
+
+    ALL_RIGS.push(_rig);
   }
 });
 
 on('QBCore:Client:OnPlayerLoaded', () => {
+  // Destroy all rig entities
+  for (const rig of ALL_RIGS.concat(MY_RIGS)) {
+    rig.Destroy();
+  }
   MY_RIGS = [];
   emitNet('crypto:playerunloaded');
 });
@@ -68,7 +74,7 @@ onNet('crypto:placerig', async (type: string) => {
     data = {
       success: true,
       pos: rig.Position,
-      heading: rig.Heading,
+      rotation: rig.Rotation,
       id: rig.RIGID,
     };
   } catch (e) {

@@ -9,7 +9,7 @@ interface IConfig {
 interface PlaceRPC {
   success: boolean;
   pos?: Vec3;
-  heading?: number;
+  rotation?: Vec3;
   id?: string;
 }
 

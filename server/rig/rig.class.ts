@@ -5,7 +5,7 @@ export class Rig {
   public Type: rigtype;
   public GPUS: GraphicsCard[];
   public Position: Vec3;
-  public Heading: number;
+  public Rotation: Vec3;
   public Id: string;
 
   constructor(data: Rig) {
@@ -14,7 +14,7 @@ export class Rig {
     this.GPUS = data.GPUS;
     this.Type = data.Type;
     this.Position = data.Position;
-    this.Heading = data.Heading;
+    this.Rotation = data.Rotation;
   }
 }
 

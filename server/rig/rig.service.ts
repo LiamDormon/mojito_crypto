@@ -18,7 +18,7 @@ class _RigService {
   }
 
   async newRig(playerSrc: string | number, data: PlaceRPC, type: rigtype) {
-    const { pos, heading, id } = data;
+    const { pos, rotation, id } = data;
     const Player = QBCore.Functions.GetPlayer(playerSrc);
     const { citizenid } = Player.PlayerData;
 
@@ -37,7 +37,7 @@ class _RigService {
       Type: type,
       GPUS: [],
       Position: pos,
-      Heading: heading,
+      Rotation: rotation,
       Id: id,
     });
 

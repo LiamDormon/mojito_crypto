@@ -1,4 +1,4 @@
-import { Control, Game, Prop, Scaleform, Vector3 } from '@nativewrappers/client';
+import { Control, Game, Prop, Vector3 } from '@nativewrappers/client';
 import { InstructionalButtons } from '@nativewrappers/client/lib/ui/InstructionalButtons';
 import { Config, GPUDict } from './config';
 import { ClientUtils, uuidV4 } from '@project-error/pe-utils';
@@ -12,18 +12,7 @@ export abstract class MiningRig {
   public GPUS: GraphicsCard[] = [];
   public RIGID: string;
   public Position: Vector3;
-
-  public get Heading(): number {
-    if (DoesEntityExist(this._entity.Handle)) {
-      return this._entity.Heading;
-    }
-  }
-
-  public set Heading(dir) {
-    if (DoesEntityExist(this._entity.Handle)) {
-      this._entity.Heading = dir;
-    }
-  }
+  public Rotation: Vector3;
 
   public get WorkPerTick(): number {
     let total = 0;
@@ -34,20 +23,11 @@ export abstract class MiningRig {
     return total;
   }
 
-  constructor(pos?: Vector3, gpus?: GraphicsCard[], rigid?: string) {
-    if (pos) {
-      this.Position = pos;
-    }
-
-    if (gpus) {
-      this.GPUS = gpus;
-    }
-
-    if (rigid) {
-      this.RIGID = rigid;
-    } else {
-      this.RIGID = uuidV4();
-    }
+  constructor(pos?: Vector3, rotation?: Vector3, gpus?: GraphicsCard[], rigid?: string) {
+    this.Position = pos ?? new Vector3(0, 0, 0);
+    this.Rotation = rotation ?? new Vector3(0, 0, 0);
+    this.GPUS = gpus ?? [];
+    this.RIGID = rigid ?? uuidV4();
   }
 
   public AddCard(gpu: GraphicsCard): boolean {
@@ -72,7 +52,7 @@ export abstract class MiningRig {
   }
 
   public Deconstruct(): void {
-    this._entity.delete();
+    this.Destroy();
     emitNet('crypto:rigdisasemble', this.RIGID);
   }
 
@@ -100,8 +80,9 @@ export abstract class MiningRig {
   public Create(): Promise<void> {
     return new Promise((resolve, reject) => {
       const gameTimer = GetGameTimer();
-      const obj = CreateObject(this.MODELHASH, this.Position.x, this.Position.y, this.Position.z, false, true, false);
-      this._entity = new Prop(obj);
+      this._entity = new Prop(CreateObject(this.MODELHASH, this.Position.x, this.Position.y, this.Position.z, false, true, false));
+      this._entity.Rotation = this.Rotation;
+      this._entity.Position = this.Position;
 
       this._tick = setTick(() => {
         if (this._entity.exists()) {
@@ -118,6 +99,10 @@ export abstract class MiningRig {
     });
   }
 
+  public Destroy(): void {
+    this._entity.delete();
+  }
+
   public Place(): Promise<void> {
     return new Promise((resolve, reject) => {
       const PlyPed = Game.PlayerPed;
@@ -129,11 +114,12 @@ export abstract class MiningRig {
 
       const buttons = new InstructionalButtons([
         {
-          controls: [Control.PhoneLeft, Control.PhoneRight, Control.PhoneUp, Control.PhoneDown],
-          label: 'Left / Right / Forward / Back',
+          controls: [Control.PhoneLeft, Control.PhoneUp, Control.PhoneDown, Control.PhoneRight],
+          label: 'Move',
         },
-        { controls: [Control.FrontendRs, Control.FrontendLs], label: 'Up / Down' },
+        { controls: [Control.FrontendRs, Control.FrontendLs], label: 'Height' },
         { controls: [Control.Context, Control.ContextSecondary], label: 'Rotate' },
+        { controls: [Control.PhoneExtraOption], label: 'Place on Ground' },
       ]);
 
       this._tick = setTick(() => {
@@ -176,6 +162,11 @@ export abstract class MiningRig {
           this._entity.Rotation = Vector3.add(this._entity.Rotation, new Vector3(0.0, 0.0, -1.0));
         }
 
+        // SPACE
+        if (IsControlJustPressed(0, Control.PhoneExtraOption)) {
+          this._entity.placeOnGround();
+        }
+
         // Enter
         if (IsControlJustPressed(0, Control.PhoneSelect)) {
           clearTick(this._tick);
@@ -199,16 +190,16 @@ export abstract class MiningRig {
 }
 
 export class BasicMiningRig extends MiningRig {
-  constructor(pos?: Vector3, gpus?: GraphicsCard[], rigid?: string) {
-    super(pos, gpus, rigid);
+  constructor(pos?: Vector3, rotation?: Vector3, gpus?: GraphicsCard[], rigid?: string) {
+    super(pos, rotation, gpus, rigid);
     this.LIMIT = Config.BasicRigCardLimit;
     this.MODELHASH = GetHashKey('prop_dyn_pc_02');
   }
 }
 
 export class AdvancedMiningRig extends MiningRig {
-  constructor(pos?: Vector3, gpus?: GraphicsCard[], rigid?: string) {
-    super(pos, gpus, rigid);
+  constructor(pos?: Vector3, rotation?: Vector3, gpus?: GraphicsCard[], rigid?: string) {
+    super(pos, rotation, gpus, rigid);
     this.LIMIT = Config.AdvancedRigCardLimit;
     this.MODELHASH = GetHashKey('xm_base_cia_server_01');
   }
