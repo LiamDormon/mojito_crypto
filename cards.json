@@ -34,5 +34,9 @@
   "rx6700xt": {
     "hashrate": 48.0,
     "wattage": 140
+  },
+    "GTX500": {
+    "hashrate": 24.86,
+    "wattage": 160
   }
 }
